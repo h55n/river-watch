@@ -1,0 +1,124 @@
+{
+  "segment_id": "chambal_001",
+  "generated_at": "2026-06-24T16:03:15.417917Z",
+  "baseline_period": {
+    "start": "2022-06-01",
+    "end": "2022-12-15"
+  },
+  "incident_window": {
+    "start": "2022-12-20",
+    "end": "2023-01-20"
+  },
+  "before_truecolor": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/0e38d9308365924f09f69ec0f4cefd53-c7059c47407c6e9ccfa1436b559629a6:getPixels",
+    "date": "2022-10-26"
+  },
+  "after_truecolor": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/0a3ac1bf1bcadbd8348f4d4e38dc5970-50be66d068959e3b6f62e67caf058ed6:getPixels",
+    "date": "2023-01-16"
+  },
+  "before_ndwi": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/6e688f8b99129d5407c641752f36ef34-f3f0bc5aa08fed6606730011949f6bbc:getPixels",
+    "date": "2022-10-26"
+  },
+  "after_ndwi": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/8ae0a38cd3c6c858ff53707963a76156-f72c27546f8085f3c2a003f48a28c833:getPixels",
+    "date": "2023-01-16"
+  },
+  "before_sar": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/022594aec3a0bc122a83bbd905aa316a-95026fe04ce362b808b9c5a989f40382:getPixels",
+    "date": "2022-12-03"
+  },
+  "after_sar": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/9b0998d7e925a06382c620dfc22bcc4c-37cc00bdd4c2cd540babf22f604bd2cf:getPixels",
+    "date": "2023-01-08"
+  },
+  "logratio": {
+    "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/2db33b089e3a0ef57fb1be47afd22c98-bd8f154598c181ed95a0478c4abba77b:getPixels",
+    "period": "2022-12-20 to 2023-01-20"
+  },
+  "timeseries_s2": [
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/32d4a8d32546795f60e76e09d782e05e-4b9e20c19c811b3d5ece299834f13de9:getPixels",
+      "date": "2022-06-03",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/a5713621dce47b3d8364805ffbb8463f-e3ae85194c1a63b6b9aabec9bf2fff1b:getPixels",
+      "date": "2022-06-23",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/b03f6f329fb7961ba562eefd0e831e41-4772edf6e3675936b13667c4cf19f1b3:getPixels",
+      "date": "2022-07-18",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/6685defe3e52ab773ff1fef64238c648-31239b8ea31fcafca13265f328aac723:getPixels",
+      "date": "2022-09-06",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/4551c97cca6375476069b76152db935e-da3d90eb7244740c75cdf75aa2d339bd:getPixels",
+      "date": "2022-09-18",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/5c97cec27bf0f3e118c376873041b389-a6f7b9aa7e088d464d2df93f745c5785:getPixels",
+      "date": "2022-10-03",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/2797bcba84748354287a486e9d211f5a-7b4703276b10a4d0f74d0ddf57d2360d:getPixels",
+      "date": "2022-10-16",
+      "type": "S2_truecolor"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/d0e882a0c8384760fee59edb43f3ba8a-c455a0a8a9c5be660466bf0ae472ccec:getPixels",
+      "date": "2022-10-23",
+      "type": "S2_truecolor"
+    }
+  ],
+  "timeseries_s1": [
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/2fa851a09f8ab25c5168785aa4eafae8-7ff6e3c1e8de68f2ab92b59a5f546d5e:getPixels",
+      "date": "2022-06-06",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/bec5ab3c51cea6d890e99fee527e9d96-ff91b46a5e3a6d862b5884d02c47e16f:getPixels",
+      "date": "2022-06-30",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/bf6591157f9084731e96e9cec364e63a-8f04ebb6c44ab901271f27a34a50ded6:getPixels",
+      "date": "2022-07-24",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/28d50ffd85d0459d96efab72f2c1b60d-e93761ab83ebd3794df139a68bc3c9b4:getPixels",
+      "date": "2022-08-17",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/f9eff0e3d7607a1231ff65cf9040968c-3b2228bcc07b557a8db524371c8e67de:getPixels",
+      "date": "2022-09-10",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/c62bfcec64ae277fc3c4dc7dd0e47d3b-9a604026f8bd92dcc4b39828572e691b:getPixels",
+      "date": "2022-10-04",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/df74ea06593a9c2dd53d081950cc5493-801aac54b093b54c220bff23381e25a4:getPixels",
+      "date": "2022-10-28",
+      "type": "S1_SAR"
+    },
+    {
+      "url": "https://earthengine.googleapis.com/v1/projects/ee-citizenism16-500109/thumbnails/6ad795bde6daf1d5e5758f4080501f1a-d28511c22dfaf5c232b6b27d1e9c443b:getPixels",
+      "date": "2022-11-21",
+      "type": "S1_SAR"
+    }
+  ]
+}

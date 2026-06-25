@@ -1,0 +1,21 @@
+/* style.css — minor visual polish for River Watch's Streamlit app.
+   Loaded via app/components/load_css.py's load_css() helper, since Streamlit
+   doesn't auto-pick-up static CSS files the way a normal web server would.
+   Keep this file small and additive -- it should never be required for the
+   app to function correctly, only to look a bit more considered. */
+
+:root {
+  --river-watch-green: #3a7d44;
+  --river-watch-amber: #e0a32e;
+  --river-watch-flag: #c1440e;
+}
+
+/* Tighten default Streamlit top padding slightly so the title sits higher */
+.block-container {
+  padding-top: 2rem;
+}
+
+/* Make st.info / hedge-language boxes a touch more prominent without being alarmist */
+div[data-testid="stAlert"] {
+  border-left: 4px solid var(--river-watch-amber);
+}

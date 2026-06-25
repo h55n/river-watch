@@ -1,0 +1,28 @@
+{
+  "type": "Feature",
+  "properties": {
+    "segment_id": "ken_001",
+    "display_name": "Ken River — Banda District Riverbed",
+    "river": "Ken",
+    "state": "Uttar Pradesh / Madhya Pradesh",
+    "coordinates_center": [25.37, 80.28],
+    "bbox": [80.13, 25.22, 80.48, 25.52],
+    "ngt_case_ref": "NGT Application 448/2019",
+    "incident_date": "2022-08-20",
+    "baseline_start": "2022-03-01",
+    "baseline_end": "2022-07-31",
+    "incident_window_start": "2022-08-01",
+    "incident_window_end": "2022-09-30",
+    "notes": "Ken River in Banda district, UP. Riverbed corridor coordinates — not city centre. Borders Panna Tiger Reserve catchment. NGT 448/2019 documented JCB excavator use at night."
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [80.13, 25.22],
+      [80.48, 25.22],
+      [80.48, 25.52],
+      [80.13, 25.52],
+      [80.13, 25.22]
+    ]]
+  }
+}

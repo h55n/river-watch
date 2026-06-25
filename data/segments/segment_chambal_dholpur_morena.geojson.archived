@@ -1,0 +1,34 @@
+{
+  "type": "Feature",
+  "properties": {
+    "segment_id": "chambal_dholpur_morena",
+    "display_name": "Chambal River — Dholpur (RJ) / Morena (MP) border stretch",
+    "river": "Chambal",
+    "states": ["Rajasthan", "Madhya Pradesh"],
+    "protected_area": "National Chambal Sanctuary (Gharial Sanctuary)",
+    "notes": "Refined polygon (2026-06-21) following the active Chambal river channel in the Dholpur-Morena border zone, centred on the Rajghat / NH44 bridge crossing at approximately 26.660°N, 77.900°E — the joint-committee-identified hotspot for illegal sand mining (see case_001/metadata.json). Previous version was a coarse 22 km × 17 km rectangle covering large non-riverine ravine area; this version is a tighter ~12 km × 4 km corridor clipped to the known active channel and adjacent sandbars, derived from: (1) OSM Chambal river way 184445944 bounds and NH44 bridge Wikidata coordinates (26.6597°N, 77.9000°E); (2) web-search-confirmed hotspot geography (Rajghat/Bhanpur, Morena district); (3) 1 km buffer on each bank to capture equipment-on-sandbar SAR returns while excluding ravine terrain that would add noise to the NDWI sandbar mask. The polygon is still a simplified approximation — it should be further refined against a cloud-free Sentinel-2 true-colour composite once GEE auth is set up, using NDWI to clip precisely to the active channel extent for the dry season (Nov–Feb), per spec Section 9's note on masking accuracy in turbid/narrow segments. Source for bridge coordinates: Wikidata Q124440267 (Chambal bridge on NH44); source for incident hotspot: NGT order 2023-02-06, Joint Committee report 2022-07-14.",
+    "boundary_method": "1 km river-corridor buffer around NH44 bridge hotspot, simplified to 8-vertex polygon; derived from OSM way 184445944 + Wikidata bridge coordinates",
+    "boundary_version": "v0.2-refined",
+    "source_for_incident": "NGT order dated 2023-02-06, citing a Joint Committee report dated 2022-07-14 and a site visit reported for 2023-01-01 near Dholpur; see case_001/metadata.json",
+    "registered_date": "2026-06-20",
+    "boundary_refined_date": "2026-06-21",
+    "status": "candidate_for_phase1_backtest",
+    "further_refinement_needed": true,
+    "further_refinement_note": "Run NDWI on a Nov-Feb Sentinel-2 pass to clip to actual exposed sandbar extent; current polygon is a rectangular corridor approximation only"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [77.875, 26.645],
+        [77.930, 26.645],
+        [77.930, 26.655],
+        [77.960, 26.660],
+        [77.960, 26.675],
+        [77.930, 26.675],
+        [77.875, 26.670],
+        [77.875, 26.645]
+      ]
+    ]
+  }
+}

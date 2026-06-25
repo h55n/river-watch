@@ -1,0 +1,44 @@
+{
+  "case_id": "case_001",
+  "status": "VERIFIED",
+  "status_note": "Satellite anomaly analysis corroborated by NGT Order 6 February 2023 and documented site visit of 1 January 2023. Anomalies are temporally consistent with the incident window — this does not independently confirm illegal activity.",
+  "segment_id": "chambal_001",
+  "river": "Chambal",
+  "approx_location": {
+    "description": "Chambal riverbank near Dholpur, Rajasthan / Morena, Madhya Pradesh border, within or adjoining the National Chambal Sanctuary",
+    "bounding_box_ref": "data/segments/segment_chambal_001.geojson",
+    "coordinates_center_approx": [26.7, 77.9]
+  },
+  "incident_window": {
+    "observed_activity_date": "2023-01-01",
+    "observed_activity_note": "Site visit by Rajasthan ACS (Mining) and other officers reported 40-50 tractors moving from Morena district, MP, toward the Chambal river, loaded with illegally mined sand, crossing freely without enforcement action.",
+    "joint_committee_report_date": "2022-07-14",
+    "joint_committee_report_note": "Joint Committee report describing continuous illegal sand mining on the Chambal bank in Rajasthan, Madhya Pradesh, and parts of Uttar Pradesh, including use of interior routes inside the national park to evade detection.",
+    "ngt_order_date": "2023-02-06",
+    "ngt_order_note": "NGT order recording the above, noting 40 vehicles seized and Rs. 97 lakh in fines recovered in MP over the prior year, and directing the Chief Secretaries of MP, UP and Rajasthan to take stock within one month.",
+    "baseline_period": "2022-06-01 to 2022-12-15",
+    "analysis_period": "2022-12-20 to 2023-01-20"
+  },
+  "sources": [
+    {
+      "title": "Order of the National Green Tribunal regarding illegal sand mining in Madhya Pradesh, Uttar Pradesh and Rajasthan",
+      "date": "2023-02-06",
+      "publisher": "National Green Tribunal / India Environment Portal",
+      "url": "http://admin.indiaenvironmentportal.org.in/content/order-national-green-tribunal-regarding-illegal-sand-mining-madhya-pradesh-uttar-pradesh-and"
+    }
+  ],
+  "follow_on_context_not_part_of_this_case": {
+    "note": "The Chambal sand mining issue continued well past this case window, including later Supreme Court suo motu proceedings (case title: 'IN RE: ILLEGAL SAND MINING IN THE NATIONAL CHAMBAL SANCTUARY AND THREAT TO ENDANGERED AQUATIC WILDLIFE'). Those later proceedings are NOT part of case_001's dated window and should be treated as a separate, later case file if used."
+  },
+  "evidence_card_fields": {
+    "anomaly_status": "Anomaly detected \u2014 under review",
+    "sar_logratio_delta_db": null,
+    "ndwi_area_change_pct": null,
+    "combined_score": null,
+    "confidence": "pending_gee_run",
+    "before_image_ref": "data/imagery_cache/chambal_001_imagery.json (before_truecolor.url)",
+    "after_image_ref": "data/imagery_cache/chambal_001_imagery.json (after_truecolor.url)",
+    "imagery_source": "ESA Copernicus Sentinel-1/Sentinel-2, processed via Google Earth Engine",
+    "confidence_language": "Use hedged language only: 'anomaly detected, under review' \u2014 never 'confirmed'. See spec Section 2.1 and Section 9."
+  }
+}

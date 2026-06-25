@@ -1,0 +1,28 @@
+{
+  "type": "Feature",
+  "properties": {
+    "segment_id": "yamuna_001",
+    "display_name": "Yamuna River — Agra/Mathura Riverbed",
+    "river": "Yamuna",
+    "state": "Uttar Pradesh",
+    "coordinates_center": [27.305, 77.745],
+    "bbox": [77.60, 27.18, 77.90, 27.45],
+    "ngt_case_ref": "NGT OA 593/2017",
+    "incident_date": "2021-05-15",
+    "baseline_start": "2021-01-01",
+    "baseline_end": "2021-04-30",
+    "incident_window_start": "2021-05-01",
+    "incident_window_end": "2021-06-15",
+    "notes": "Yamuna riverbed stretch between Agra and Mathura. Coordinates follow river corridor, not city centre. NGT OA 593/2017 documented systematic sand dredging here."
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [77.60, 27.18],
+      [77.90, 27.18],
+      [77.90, 27.45],
+      [77.60, 27.45],
+      [77.60, 27.18]
+    ]]
+  }
+}

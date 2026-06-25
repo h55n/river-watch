@@ -1,0 +1,28 @@
+{
+  "type": "Feature",
+  "properties": {
+    "segment_id": "chambal_001",
+    "display_name": "Chambal River — Dholpur/Morena Stretch",
+    "river": "Chambal",
+    "state": "Rajasthan / Madhya Pradesh",
+    "coordinates_center": [26.7, 77.9],
+    "bbox": [77.75, 26.60, 78.05, 26.85],
+    "ngt_case_ref": "NGT Order dated 6 February 2023",
+    "incident_date": "2023-01-01",
+    "baseline_start": "2022-06-01",
+    "baseline_end": "2022-12-15",
+    "incident_window_start": "2022-12-20",
+    "incident_window_end": "2023-01-20",
+    "notes": "NGT site visit 1 Jan 2023 documented 40-50 tractors hauling mined sand. NGT Order 6 Feb 2023. Broader bbox vs. the refined chambal_dholpur_morena polygon — covers the full Dholpur/Morena border zone for initial pipeline validation before tighter clipping via NDWI dry-season composite."
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [77.75, 26.60],
+      [78.05, 26.60],
+      [78.05, 26.85],
+      [77.75, 26.85],
+      [77.75, 26.60]
+    ]]
+  }
+}

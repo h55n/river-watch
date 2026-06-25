@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>River Watch — Satellite Evidence for India's Rivers</title>
+  <meta name="description" content="Free, open, evidence-grade satellite monitoring of illegal sand mining on India's rivers. Built for lawyers, journalists, and local communities.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛰️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" href="style.css?v=301">
+</head>
+<body style="background:#fafffa;color:#121613">
+
+  <!-- NAV — DESIGN.md flat, off-white -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-left">
+      <a class="logo-button" href="#hero">
+        River Watch
+        <span class="logo-accent-bar"></span>
+      </a>
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Pipeline Active</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#monitor">Monitor</a>
+      <a href="#hotspots">Zones</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#case-studies">Case Files</a>
+      <a href="#methodology">Methodology</a>
+    </div>
+    <button class="nav-cta" onclick="document.getElementById('monitor').scrollIntoView({behavior:'smooth'})">View Monitor</button>
+  </nav>
+
+  <!-- HERO — DESIGN.md editorial style: massive headline with inline image insets -->
+  <header class="hero" id="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-tag">Sentinel-1 SAR · Sentinel-2 · ESA Copernicus</span>
+      <span class="hero-eyebrow-tag"><span class="hero-eyebrow-accent">●</span> India's Rivers</span>
+    </div>
+
+    <!-- DESIGN.md: Full-viewport headline with inline image insets -->
+    <h1 class="hero-headline">
+      <span>Satellite</span>
+      <span class="hero-img-inset" id="hero-img-1">
+        <img src="hero_img1.png"
+             alt="Chambal river satellite view"
+             onerror="this.parentElement.style.background='#c8d2c8';this.style.display='none'">
+      </span>
+      <span>evidence</span>
+      <span class="hero-img-inset" id="hero-img-2">
+        <img src="hero_img2.png"
+             alt="River aerial view"
+             onerror="this.parentElement.style.background='#c8d2c8';this.style.display='none'">
+      </span>
+      <span>for</span>
+      <br>
+      <span class="hero-accent-word">India's</span>
+      <span class="hero-italic">rivers.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Sentinel-1 SAR radar + Sentinel-2 optical analysis flags sand-mining anomalies
+      before the sandbar disappears — for lawyers, journalists, and local communities. Free and open.
+    </p>
+
+    <div class="hero-hedge">
+      ⚖️ Every flag is a satellite-derived <em>anomaly</em>, not a confirmed finding.
+      Revisit cadence improving toward ~6 days. All imagery dated.
+    </div>
+
+    <!-- Stats row — DESIGN.md horizontal divider style -->
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <span class="hero-stat-num" id="stat-segments">4</span>
+        <span class="hero-stat-label">River Stretches Monitored</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num accent" id="stat-alerts">—</span>
+        <span class="hero-stat-label">SAR Anomalies Flagged</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">1</span>
+        <span class="hero-stat-label">GEE-Validated Case</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">~6-day</span>
+        <span class="hero-stat-label">Revisit Cadence</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">Free</span>
+        <span class="hero-stat-label">Open Source (MIT)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- TICKER — hairline borders, monospace, DESIGN.md -->
+  <div class="ticker-bar">
+    <div class="ticker-inner" id="ticker">
+      <span>🛰️ Chambal · SAR Δ +28.0 dB · 91.8 ha anomaly · NDWI sandbar reduction detected · ~91k m³ sand removed (est)</span>
+      <span>📡 Yamuna · Agra/Mathura · SAR backscatter anomaly · NDWI channel morphology shift detected</span>
+      <span>📡 Ken · Banda, UP · SAR Δ +36.4 dB · 172 ha flagged · Borders Panna Tiger Reserve catchment</span>
+      <span>📡 Ganga · Haridwar · SAR Δ +32.8 dB · 115 ha anomaly · Rajaji National Park buffer</span>
+      <span>⏱ ~6-day SAR revisit · Sentinel-1/Sentinel-2 via GEE · Every flag requires human verification</span>
+      <span>📄 Satellite imagery is the primary evidence · Court records are corroborating context · MIT Open Source</span>
+      <!-- duplicated for infinite scroll -->
+      <span>🛰️ Chambal · SAR Δ +28.0 dB · 91.8 ha anomaly · NDWI sandbar reduction detected · ~91k m³ sand removed (est)</span>
+      <span>📡 Yamuna · Agra/Mathura · SAR backscatter anomaly · NDWI channel morphology shift detected</span>
+      <span>📡 Ken · Banda, UP · SAR Δ +36.4 dB · 172 ha flagged · Borders Panna Tiger Reserve catchment</span>
+      <span>📡 Ganga · Haridwar · SAR Δ +32.8 dB · 115 ha anomaly · Rajaji National Park buffer</span>
+      <span>⏱ ~6-day SAR revisit · Sentinel-1/Sentinel-2 via GEE · Every flag requires human verification</span>
+      <span>📄 Satellite imagery is the primary evidence · Court records are corroborating context · MIT Open Source</span>
+    </div>
+  </div>
+
+  <!-- ANOMALY MONITOR — dark section, live polling -->
+  <section class="section--dark" id="monitor">
+    <div class="container">
+      <div class="section-eyebrow--dark">Anomaly Monitor · Live Polling · 30s refresh</div>
+      <h2 class="section-title--dark t-section" style="color:#fafffa;margin-bottom:8px">
+        SAR Anomaly Monitor
+      </h2>
+      <p class="section-desc--dark" style="margin-bottom:8px">
+        Sentinel-1 radar + Sentinel-2 optical analysis. Pulsing zones show flagged SAR anomaly footprints
+        at real NGT-documented coordinates. Data polled from <code style="color:#2bee4b">dashboard.json</code> every 30 seconds.
+      </p>
+      <div class="section-hedge--dark" style="margin-bottom:var(--sp-3xl)">
+        ⚖️ "Anomaly detected" never means "confirmed illegal." These zones show where the pipeline flagged unusual radar backscatter — human investigation is always required.
+      </div>
+
+      <!-- Stats bar -->
+      <div class="monitor-stats-bar" id="monitor-stats-bar">
+        <div class="msb-item"><div class="msb-label">Data Generated</div><div class="msb-val" id="msb-generated">Loading...</div></div>
+        <div class="msb-item"><div class="msb-label">Segments Monitored</div><div class="msb-val green" id="msb-segments">—</div></div>
+        <div class="msb-item"><div class="msb-label">Anomalies Flagged</div><div class="msb-val green" id="msb-anomalies">—</div></div>
+        <div class="msb-item"><div class="msb-label">Next Poll In</div><div class="msb-val" id="msb-countdown">30s</div></div>
+        <div class="msb-item"><div class="msb-label">Imagery Source</div><div class="msb-val" style="font-size:12px">ESA Copernicus · Open</div></div>
+      </div>
+
+      <!-- Monitor grid: map + sidebar -->
+      <div class="monitor-grid">
+        <!-- Map -->
+        <div class="monitor-map-wrap">
+          <div id="live-map"></div>
+          <div class="poll-bar">
+            <span class="poll-dot"></span>
+            <span class="poll-text" id="poll-status">Polling dashboard.json…</span>
+          </div>
+        </div>
+
+        <!-- Sidebar: stat cards + activity log -->
+        <div class="monitor-sidebar" id="monitor-sidebar">
+          <!-- Injected by JS -->
+          <div class="site-loading"><div class="spinner"></div><p style="color:rgba(250,255,250,0.5)">Loading anomaly data…</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL MODAL -->
+  <div class="detail-panel" id="detail-panel" style="display:none">
+    <div class="detail-inner">
+      <button class="detail-close" onclick="closeDetail()">✕ Close</button>
+      <div class="detail-content" id="detail-content"></div>
+    </div>
+  </div>
+
+  <!-- EVIDENCE — dark section -->
+  <section class="section--dark" id="evidence">
+    <div class="container">
+      <div class="section-eyebrow--dark">Satellite Evidence · All 4 Segments</div>
+      <h2 class="t-section" style="color:#fafffa;margin-bottom:8px">What the Satellite Saw</h2>
+      <p class="section-desc--dark" style="margin-bottom:var(--sp-md)">
+        Before/after Sentinel-2 true-colour, Sentinel-1 SAR, NDWI sandbar maps, and NDWI difference images
+        showing actual physical soil reduction on India's rivers.
+        <strong style="color:#2bee4b">All imagery: ESA Copernicus Sentinel-1/2 — open licence, served locally via GEE pipeline. Court records are corroborating context — satellite data is the evidence.</strong>
+      </p>
+    </div>
+    <div class="container" id="evidence-container">
+      <div class="site-loading"><div class="spinner"></div><p style="color:rgba(250,255,250,0.4)">Loading satellite imagery…</p></div>
+    </div>
+  </section>
+
+  <!-- CASE FILES — off-white editorial -->
+  <section class="section" id="case-studies">
+    <div class="container">
+      <div class="section-eyebrow">Case Files · GEE-Validated</div>
+      <h2 class="section-title">
+        Satellite<br>
+        <span class="hero-italic t-serif-m" style="font-size:clamp(24px,4vw,56px)">Evidence</span>
+      </h2>
+      <p class="section-desc" style="margin-bottom:var(--sp-3xl)">
+        Sentinel-1 SAR backscatter anomalies + Sentinel-2 NDWI sandbar morphology changes — actual physical evidence of riverbed alteration.
+        Sand volume loss estimates and channel shift measurements derived from satellite imagery.
+        <strong>4 segments · All GEE-validated · Court records are corroborating context, not primary proof.</strong>
+      </p>
+    </div>
+    <div class="container">
+      <div class="case-grid" id="case-grid"></div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY — off-white -->
+  <section class="section--surface" id="methodology">
+    <div class="container">
+      <div class="section-eyebrow">Transparency</div>
+      <h2 class="section-title">How It Works</h2>
+      <div style="height:var(--sp-4xl)"></div>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-num">01</div>
+          <h3>SAR Backscatter</h3>
+          <p>Sentinel-1 C-band radar detects metal equipment and vessels on sandbars. Log-ratio anomaly between a seasonal quiet-state baseline and target pass. Flagged area = statistically unusual radar return.</p>
+          <span class="method-tag">Sentinel-1 GRD · VV · 10m</span>
+        </div>
+        <div class="method-card">
+          <div class="method-num">02</div>
+          <h3>NDWI Morphology</h3>
+          <p>Sentinel-2 NDWI water/sandbar mask tracks exposed sandbar area vs. a seasonal baseline. Flags deviations beyond the historical range for that specific segment and month — not a global threshold.</p>
+          <span class="method-tag">Sentinel-2 · NDWI · 10m</span>
+        </div>
+        <div class="method-card">
+          <div class="method-num">03</div>
+          <h3>Hedged Scoring</h3>
+          <p>Two-signal fusion into NONE / LOW / ELEVATED / UNDER_REVIEW. The system never outputs "confirmed illegal." Confirmation is always a human, legal, or journalistic judgment — not an algorithm.</p>
+          <span class="method-tag">Anomaly Scorer · Not a legal tool</span>
+        </div>
+      </div>
+
+      <div class="guardrail-box">
+        <div class="guardrail-title">What this platform does NOT claim</div>
+        <ul>
+          <li>NOT riverbed depth or volume extracted — SAR does not see through water</li>
+          <li>NOT near-real-time — see acquisition dates on every layer</li>
+          <li>NOT "illegal mining confirmed" — anomalies require human verification</li>
+          <li>NOT sub-meter commercial optical — we use free Copernicus data at 10m</li>
+          <li>NOT a replacement for state enforcement</li>
+          <li>NOT black-box AI — transparent, documented statistical method</li>
+        </ul>
+      </div>
+
+      <div class="datasources-strip">
+        <div class="ds-title">Data Sources & Credits</div>
+        <div class="ds-grid">
+          <div class="ds-item"><strong>ESA Copernicus</strong>Sentinel-1 SAR (C-band, GRD)<br>Sentinel-2 Optical (10m)<br><span style="font-size:11px;color:var(--border-mid)">Open licence</span></div>
+          <div class="ds-item"><strong>Google Earth Engine</strong>Processing pipeline<br><span style="font-size:11px;color:var(--border-mid)">Free tier</span></div>
+          <div class="ds-item"><strong>NASA FIRMS</strong>Thermal anomaly reference<br><span style="font-size:11px;color:var(--border-mid)">Fires/kilns — not mining detection</span></div>
+          <div class="ds-item"><strong>Global Forest Watch (WRI)</strong>Forest alert reference layer<br><span style="font-size:11px;color:var(--border-mid)">Credited — not River Watch's own detection</span></div>
+          <div class="ds-item"><strong>National Green Tribunal</strong>Court orders — primary evidence<br><span style="font-size:11px;color:var(--border-mid)">Public record</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER — DESIGN.md hairline style -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="logo-button" style="font-size:20px">
+          River Watch
+          <span class="logo-accent-bar"></span>
+        </div>
+        <p>Free, open, evidence-grade satellite monitoring of India's rivers. Built to give lawyers, journalists, and communities the dated proof they need — before the sandbar disappears.</p>
+      </div>
+      <div class="footer-right">
+        <div class="footer-section">
+          <div class="footer-label">Data Sources</div>
+          <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-1" target="_blank">Sentinel-1 SAR — ESA</a>
+          <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2" target="_blank">Sentinel-2 Optical — ESA</a>
+          <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank">NASA FIRMS (Thermal)</a>
+          <a href="https://globalforestwatch.org" target="_blank">Global Forest Watch (WRI)</a>
+          <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap Contributors</a>
+        </div>
+        <div class="footer-section">
+          <div class="footer-label">Legal</div>
+          <a href="#methodology">Methodology & Hedge Statement</a>
+          <a href="https://greentribunal.gov.in/" target="_blank">National Green Tribunal</a>
+          <a href="#">Open Source (MIT Licence)</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      River Watch is independent of and not affiliated with any government agency.
+      All anomaly flags are preliminary and require human investigation to confirm.
+      © 2026 · Open Source (MIT) · Satellite data: ESA Copernicus — open licence.
+      <span style="margin-left:16px;opacity:0.5">✦ made by hssn</span>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js?v=50"></script>
+</body>
+</html>

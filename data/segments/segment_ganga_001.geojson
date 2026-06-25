@@ -1,0 +1,28 @@
+{
+  "type": "Feature",
+  "properties": {
+    "segment_id": "ganga_001",
+    "display_name": "Ganga — Haridwar/Rishikesh Riverbed",
+    "river": "Ganga",
+    "state": "Uttarakhand",
+    "coordinates_center": [29.88, 78.09],
+    "bbox": [78.00, 29.78, 78.25, 30.05],
+    "ngt_case_ref": "Supreme Court Suo Motu 2022",
+    "incident_date": "2022-03-10",
+    "baseline_start": "2021-10-01",
+    "baseline_end": "2022-02-28",
+    "incident_window_start": "2022-03-01",
+    "incident_window_end": "2022-04-30",
+    "notes": "Ganga riverbed between Haridwar and Rishikesh. Coordinates on river corridor — not city/town centre. Supreme Court suo motu 2022 documented ongoing extraction despite NGT ban."
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [78.00, 29.78],
+      [78.25, 29.78],
+      [78.25, 30.05],
+      [78.00, 30.05],
+      [78.00, 29.78]
+    ]]
+  }
+}
