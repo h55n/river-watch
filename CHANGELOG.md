@@ -2,6 +2,26 @@
 
 All notable changes to the River Watch project are documented here.
 
+## [5.0.0] - 2026-06-29
+
+### Summary
+Phase 3 completed: Supabase Migration and Vercel Deployment. We successfully transitioned from a static local JSON architecture to a live PostgreSQL database hosted on Supabase. The frontend now fetches hotspot data dynamically via the Supabase Javascript SDK. Additionally, the web app was deployed to a production Vercel environment, and the GitHub Actions data pipeline was fully wired with repository secrets for 100% autonomous operation.
+
+### Added
+- **Supabase Integration**: Created a live Supabase PostgreSQL project with `hotspots` and `metadata` tables, replacing the static `data/dashboard.json`.
+- **Database Upsert Pipeline**: Updated the `generate_dashboard_data.py` Python script to authenticate with Supabase Service Role and securely `upsert` processed hotspot and metadata logs.
+- **Frontend Live Polling**: Refactored `app_frontend/app.js` and `index.html` to import the `@supabase/supabase-js` CDN script and query the live database on page load using the public `anon` key.
+- **Vercel Production Deployment**: Configured and successfully deployed the frontend application to a live Vercel URL, completely separating the Python backend processing from the frontend HTML static generation.
+- **Vercel Configuration**: Added `.vercelignore` to force Vercel to skip Python scripts and deploy strictly as a static application, bypassing Vercel serverless build errors.
+- **Automated CI/CD Secrets**: Securely pushed `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` into GitHub Actions secrets using the `gh` CLI.
+- **Pipeline Workflow Integration**: Updated the `.github/workflows/data_pipeline.yml` to inject the Supabase environment variables for autonomous scheduled database updates.
+
+### Fixed
+- **Global Variable Collision**: Resolved a frontend crash where our `app.js` declared a global `supabase` variable that collided with the CDN script's `window.supabase` object by renaming our client instance to `supabaseClient`.
+- **Aggressive CDN Caching**: Bumped the JavaScript build cache version to correctly deliver the patched `app.js` in production on Vercel.
+- **Broken Navigation Link**: Removed a dead `<a href="#hotspots">Zones</a>` link from the header that pointed to a non-existent anchor ID.
+
+
 ## [4.0.0] - 2026-06-25
 
 ### Summary
