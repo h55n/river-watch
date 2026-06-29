@@ -552,14 +552,14 @@ function renderCaseStudies(hotspots) {
 ══════════════════════════════════════════════════════════════════════════ */
 const supabaseUrl = 'https://pdrofamxilbfbwqqqoxg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkcm9mYW14aWxiZmJ3cXFxb3hnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3Mzg3OTUsImV4cCI6MjA5ODMxNDc5NX0.mDNgssuMSfP-nL7VPJykXe8qiMOEpTzwow0zymnNT_M';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 async function fetchDashboard() {
   try {
-    const { data: hotspots, error: err1 } = await supabase.from('hotspots').select('*');
+    const { data: hotspots, error: err1 } = await supabaseClient.from('hotspots').select('*');
     if (err1) throw err1;
     
-    const { data: meta, error: err2 } = await supabase.from('metadata').select('*');
+    const { data: meta, error: err2 } = await supabaseClient.from('metadata').select('*');
     if (err2) throw err2;
     
     let metadataObj = {};

@@ -1,0 +1,7 @@
+*.py
+requirements.txt
+app/
+pipeline/
+scripts/
+tests/
+.github/

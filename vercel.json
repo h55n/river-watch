@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/data/(.*)", "destination": "/data/$1" },
-    { "source": "/assets/(.*)", "destination": "/assets/$1" },
-    { "source": "/(.*)", "destination": "/app_frontend/$1" }
+  "builds": [
+    { "src": "app_frontend/**", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" },
+    { "src": "data/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/data/(.*)", "dest": "/data/$1" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/(.*)", "dest": "/app_frontend/$1" }
   ]
 }
