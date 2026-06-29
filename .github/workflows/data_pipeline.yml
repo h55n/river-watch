@@ -1,0 +1,51 @@
+name: River Watch Data Pipeline
+
+on:
+  schedule:
+    # Run every 12 hours
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+    # Allow manual triggering from the Actions tab
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Run Data Pipeline
+        env:
+          EE_SERVICE_ACCOUNT: ${{ secrets.EE_SERVICE_ACCOUNT }}
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/ee_key.json
+          EE_PROJECT: ${{ secrets.EE_PROJECT }}
+        run: |
+          # Write the JSON key from GitHub Secrets to a file
+          echo '${{ secrets.EE_KEY_JSON }}' > /tmp/ee_key.json
+          
+          # Run the main generation script
+          python scripts/generate_dashboard_data.py
+          
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add any modified or new files in data/ and app_frontend/imagery/
+          git add data/
+          git add app_frontend/imagery/
+          
+          # Commit and push if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): auto-update satellite imagery and metrics" && git push)
