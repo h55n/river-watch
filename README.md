@@ -1,6 +1,6 @@
 <div align="center">
 
-![River Watch Banner](assets/banner.png)
+![River Watch Logo](assets/logo.svg)
 
 # River Watch 🛰️
 
