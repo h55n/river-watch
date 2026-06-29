@@ -31,6 +31,8 @@ jobs:
           EE_SERVICE_ACCOUNT: ${{ secrets.EE_SERVICE_ACCOUNT }}
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/ee_key.json
           EE_PROJECT: ${{ secrets.EE_PROJECT }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           # Write the JSON key from GitHub Secrets to a file
           echo '${{ secrets.EE_KEY_JSON }}' > /tmp/ee_key.json
