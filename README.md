@@ -1,8 +1,22 @@
-﻿# River Watch 🛰️
+# River Watch 🛰️
 
 **A free, open, evidence-grade satellite monitoring tool for India's rivers.**
 
 River Watch flags possible illegal sand mining activity along Indian river stretches using free Sentinel-1 (SAR radar) and Sentinel-2 (optical) satellite data. It surfaces dated, defensible *anomalies* — not "confirmed" illegal mining — for lawyers, journalists, NGOs, and communities to investigate and act on.
+
+## App Demo
+
+**Video Walkthrough**
+![App Demo](assets/app_demo.webp)
+
+**Dashboard Overview**
+![App Screenshot](assets/app_screenshot.png)
+
+**Live Metrics View**
+![App Metrics](assets/app_metrics.png)
+
+**Detailed Hotspot Analysis (Ganga)**
+![Ganga Hotspot View](assets/app_ganga_view.png)
 
 ---
 
