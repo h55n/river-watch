@@ -7,7 +7,7 @@ River Watch flags possible illegal sand mining activity along Indian river stret
 ## App Demo
 
 **Video Walkthrough**
-![App Demo](assets/app_demo.webp)
+![App Demo](assets/app_demo_final.webp)
 
 **Dashboard Overview**
 ![App Screenshot](assets/app_screenshot.png)
