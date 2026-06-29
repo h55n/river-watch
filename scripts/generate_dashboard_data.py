@@ -23,6 +23,7 @@ import math
 import requests
 from datetime import datetime, timezone
 from pathlib import Path
+from supabase import create_client, Client
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -671,9 +672,26 @@ def main():
     out_path = DATA_DIR / "dashboard.json"
     with open(out_path, "w") as f:
         json.dump(dashboard, f, indent=2)
+        
+    print("Upserting to Supabase...")
+    supabase_url = os.environ.get("SUPABASE_URL")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if supabase_url and supabase_key:
+        supabase: Client = create_client(supabase_url, supabase_key)
+        for h in dashboard["hotspots"]:
+            # Perform upsert
+            res = supabase.table("hotspots").upsert(h).execute()
+        
+        # Upsert metadata
+        supabase.table("metadata").upsert({"key": "generated_at", "value": dashboard["generated_at"]}).execute()
+        supabase.table("metadata").upsert({"key": "phase", "value": dashboard["phase"]}).execute()
+        supabase.table("metadata").upsert({"key": "scope_note", "value": dashboard["scope_note"]}).execute()
+        print("Successfully synced with Supabase Postgres.")
+    else:
+        print("WARN: SUPABASE_URL and SUPABASE_SERVICE_KEY env vars not set, skipping DB sync.")
 
     print(f"\n{'='*60}")
-    print(f"[DONE] Dashboard written -> {out_path}")
+    print(f"[DONE] Dashboard written -> {out_path} and synced to Supabase")
     print(f"  Hotspots: {len(dashboard['hotspots'])}")
     print(f"  Images: {THUMBS_DIR}")
     print(f"  Generated: {dashboard['generated_at']}")

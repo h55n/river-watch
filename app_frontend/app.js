@@ -550,19 +550,33 @@ function renderCaseStudies(hotspots) {
 /* ══════════════════════════════════════════════════════════════════════════
    30-SECOND POLLING — diff & update
 ══════════════════════════════════════════════════════════════════════════ */
+const supabaseUrl = 'https://pdrofamxilbfbwqqqoxg.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkcm9mYW14aWxiZmJ3cXFxb3hnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3Mzg3OTUsImV4cCI6MjA5ODMxNDc5NX0.mDNgssuMSfP-nL7VPJykXe8qiMOEpTzwow0zymnNT_M';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 async function fetchDashboard() {
-  const paths = [
-    '../data/dashboard.json?t=' + Date.now(),
-    './data/dashboard.json?t=' + Date.now(),
-    '/data/dashboard.json?t=' + Date.now(),
-  ];
-  for (const path of paths) {
-    try {
-      const res = await fetch(path);
-      if (res.ok) return res.json();
-    } catch (e) { /* try next path */ }
+  try {
+    const { data: hotspots, error: err1 } = await supabase.from('hotspots').select('*');
+    if (err1) throw err1;
+    
+    const { data: meta, error: err2 } = await supabase.from('metadata').select('*');
+    if (err2) throw err2;
+    
+    let metadataObj = {};
+    if (meta) {
+      meta.forEach(m => metadataObj[m.key] = m.value);
+    }
+    
+    return {
+      generated_at: metadataObj.generated_at,
+      phase: metadataObj.phase,
+      scope_note: metadataObj.scope_note,
+      hotspots: hotspots || []
+    };
+  } catch (e) {
+    console.error("Supabase fetch error:", e);
+    throw new Error('Could not fetch data from Supabase Postgres');
   }
-  throw new Error('dashboard.json unreachable — serve from project root: python -m http.server 8000');
 }
 
 function diffAndUpdate(fresh) {
