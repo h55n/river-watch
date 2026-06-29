@@ -1,6 +1,18 @@
+<div align="center">
+
+![River Watch Banner](assets/banner.png)
+
 # River Watch 🛰️
 
 **A free, open, evidence-grade satellite monitoring tool for India's rivers.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Google Earth Engine](https://img.shields.io/badge/Google%20Earth%20Engine-Active-success.svg)](https://earthengine.google.com/)
+[![Dashboard](https://img.shields.io/badge/Dashboard-Live-success.svg)](#app-demo)
+[![Tests](https://img.shields.io/badge/Tests-21%20Passing-success.svg)](#running-tests)
+
+</div>
 
 River Watch flags possible illegal sand mining activity along Indian river stretches using free Sentinel-1 (SAR radar) and Sentinel-2 (optical) satellite data. It surfaces dated, defensible *anomalies* — not "confirmed" illegal mining — for lawyers, journalists, NGOs, and communities to investigate and act on.
 
