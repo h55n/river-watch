@@ -34,7 +34,7 @@ const fmt = {
   vol:    m3  => m3 == null ? '—' : m3 >= 1e6 ? (m3/1e6).toFixed(2)+' Mm³' : m3 >= 1000 ? (m3/1000).toFixed(0)+'k m³' : m3.toFixed(0)+' m³',
   db:     db  => db == null ? '—' : (db >= 0 ? '+' : '')+db.toFixed(1)+' dB',
   pct:    p   => p  == null ? '—' : (p  >= 0 ? '+' : '')+p.toFixed(1)+'%',
-  date:   s   => s ? s.substring(0,10) : '—',
+  date:   s   => s ? String(s).substring(0,10) : '—',
   shift:  m   => m == null ? '—' : m >= 1000 ? (m/1000).toFixed(2)+' km' : m.toFixed(0)+' m',
 };
 
@@ -61,9 +61,10 @@ function resolveImgUrl(url) {
 }
 
 /* ── Navbar scroll ─────────────────────────────────────────────────────── */
-window.addEventListener('scroll', () =>
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60)
-);
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+});
 
 /* ══════════════════════════════════════════════════════════════════════════
    LIVE ANOMALY MONITOR MAP
@@ -170,10 +171,10 @@ function renderMonitorSidebar(hotspots) {
     card.style.borderLeftColor = color;
     card.style.borderLeftWidth = '3px';
     card.innerHTML = `
-      <div class="msc-label">${h.river.toUpperCase()} · ${h.state.split('/')[0].trim().toUpperCase()}</div>
+      <div class="msc-label">${(h.river || '').toUpperCase()} · ${(h.state || '').split('/')[0].trim().toUpperCase()}</div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-xs)">
         <span class="msc-value ${h.anomaly_level === 'elevated' ? 'flagged' : ''}" style="font-size:15px;color:#fafffa;font-weight:700">
-          ${h.name.split('—')[0].trim()}
+          ${(h.name || '').split('—')[0].trim()}
         </span>
         <span style="font-size:9px;font-weight:700;color:${color};text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border:1px solid ${color}20;border-radius:4px">
           ${levelLabel(h.anomaly_level)}
@@ -552,9 +553,15 @@ function renderCaseStudies(hotspots) {
 ══════════════════════════════════════════════════════════════════════════ */
 const supabaseUrl = 'https://pdrofamxilbfbwqqqoxg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkcm9mYW14aWxiZmJ3cXFxb3hnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3Mzg3OTUsImV4cCI6MjA5ODMxNDc5NX0.mDNgssuMSfP-nL7VPJykXe8qiMOEpTzwow0zymnNT_M';
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
 
 async function fetchDashboard() {
+  if (!supabaseClient) {
+    console.warn("Supabase SDK not loaded (CDN issue?), falling back to local dashboard.json");
+    const res = await fetch('/data/dashboard.json');
+    if (!res.ok) throw new Error("Could not fetch local dashboard.json");
+    return await res.json();
+  }
   try {
     const { data: hotspots, error: err1 } = await supabaseClient.from('hotspots').select('*');
     if (err1) throw err1;
