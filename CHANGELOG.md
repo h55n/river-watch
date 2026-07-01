@@ -2,6 +2,22 @@
 
 All notable changes to the River Watch project are documented here.
 
+## [5.1.0] - 2026-07-01
+
+### Summary
+Comprehensive stability and resilience update to guarantee zero-downtime operation across all environments. Fixed missing Vercel imagery deployments and hardened the architecture against database, network, and CDN outages.
+
+### Fixed
+- **Missing Satellite Imagery**: Removed `app_frontend/imagery/` and `data/dashboard.json` from `.gitignore` so they are correctly tracked, committed to the repository, and deployed by Vercel.
+- **Vercel Static Routing Fallback**: Fixed the `fetchDashboard()` fallback URL in `app_frontend/app.js` to point to `/data/dashboard.json`, perfectly aligning with Vercel's `vercel.json` static routing rules.
+- **Supabase SDK CDN Crash**: Added defensive null-checks in `app_frontend/app.js` to instantly trigger the JSON fallback if the `@supabase/supabase-js` CDN fails to load, preventing a fatal `TypeError` and blank screen.
+- **Undefined String Exceptions**: Added null-coalescing fallbacks (`(h.state || '').split(...)`) to all frontend UI rendering functions to prevent the sidebar from crashing if a hotspot is saved with missing metadata.
+- **Missing DOM Elements**: Wrapped the window scroll listener in an existence check for the navbar element to prevent console spam.
+- **Dead GitHub Actions Workflow**: Removed `.github/workflows/pages.yml` as the project is deployed on Vercel, not GitHub Pages.
+
+### Added
+- **Fail-Safe Pipeline Execution**: Wrapped all Supabase `upsert` operations in the `scripts/generate_dashboard_data.py` backend pipeline with `try/except` blocks. If Supabase experiences an outage, the GitHub Action will now gracefully exit with code 0 instead of crashing. This ensures that the latest satellite imagery and `dashboard.json` are still committed to the repository and deployed to the Vercel edge network, providing a seamless fallback for end-users.
+
 ## [5.0.0] - 2026-06-29
 
 ### Summary
