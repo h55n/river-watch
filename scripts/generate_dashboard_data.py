@@ -506,14 +506,17 @@ def main():
         supabase_url = os.environ.get("SUPABASE_URL")
         supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
         if supabase_url and supabase_key:
-            supabase = create_client(supabase_url, supabase_key)
-            for h in dashboard.get("hotspots", []):
-                supabase.table("hotspots").upsert(h).execute()
-            
-            supabase.table("metadata").upsert({"key": "generated_at", "value": dashboard.get("generated_at", "")}).execute()
-            supabase.table("metadata").upsert({"key": "phase", "value": dashboard.get("phase", "")}).execute()
-            supabase.table("metadata").upsert({"key": "scope_note", "value": dashboard.get("scope_note", "")}).execute()
-            print("Successfully synced with Supabase Postgres.")
+            try:
+                supabase = create_client(supabase_url, supabase_key)
+                for h in dashboard.get("hotspots", []):
+                    supabase.table("hotspots").upsert(h).execute()
+                
+                supabase.table("metadata").upsert({"key": "generated_at", "value": dashboard.get("generated_at", "")}).execute()
+                supabase.table("metadata").upsert({"key": "phase", "value": dashboard.get("phase", "")}).execute()
+                supabase.table("metadata").upsert({"key": "scope_note", "value": dashboard.get("scope_note", "")}).execute()
+                print("Successfully synced with Supabase Postgres.")
+            except Exception as e:
+                print(f"WARN: Failed to sync with Supabase: {e}")
         else:
             print("WARN: SUPABASE_URL and SUPABASE_SERVICE_KEY env vars not set, skipping DB sync.")
         return
@@ -703,16 +706,19 @@ def main():
     supabase_url = os.environ.get("SUPABASE_URL")
     supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
     if supabase_url and supabase_key:
-        supabase: Client = create_client(supabase_url, supabase_key)
-        for h in dashboard["hotspots"]:
-            # Perform upsert
-            res = supabase.table("hotspots").upsert(h).execute()
-        
-        # Upsert metadata
-        supabase.table("metadata").upsert({"key": "generated_at", "value": dashboard["generated_at"]}).execute()
-        supabase.table("metadata").upsert({"key": "phase", "value": dashboard["phase"]}).execute()
-        supabase.table("metadata").upsert({"key": "scope_note", "value": dashboard["scope_note"]}).execute()
-        print("Successfully synced with Supabase Postgres.")
+        try:
+            supabase: Client = create_client(supabase_url, supabase_key)
+            for h in dashboard["hotspots"]:
+                # Perform upsert
+                res = supabase.table("hotspots").upsert(h).execute()
+            
+            # Upsert metadata
+            supabase.table("metadata").upsert({"key": "generated_at", "value": dashboard["generated_at"]}).execute()
+            supabase.table("metadata").upsert({"key": "phase", "value": dashboard["phase"]}).execute()
+            supabase.table("metadata").upsert({"key": "scope_note", "value": dashboard["scope_note"]}).execute()
+            print("Successfully synced with Supabase Postgres.")
+        except Exception as e:
+            print(f"WARN: Failed to sync with Supabase: {e}")
     else:
         print("WARN: SUPABASE_URL and SUPABASE_SERVICE_KEY env vars not set, skipping DB sync.")
 
