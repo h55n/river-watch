@@ -559,6 +559,10 @@ async function fetchDashboard() {
     const { data: hotspots, error: err1 } = await supabaseClient.from('hotspots').select('*');
     if (err1) throw err1;
     
+    if (!hotspots || hotspots.length === 0) {
+      throw new Error('Supabase returned empty hotspots');
+    }
+
     const { data: meta, error: err2 } = await supabaseClient.from('metadata').select('*');
     if (err2) throw err2;
     
@@ -575,7 +579,10 @@ async function fetchDashboard() {
     };
   } catch (e) {
     console.error("Supabase fetch error:", e);
-    throw new Error('Could not fetch data from Supabase Postgres');
+    console.log("Falling back to local dashboard.json");
+    const res = await fetch('dashboard.json');
+    if (!res.ok) throw new Error("Could not fetch local dashboard.json");
+    return await res.json();
   }
 }
 

@@ -28,7 +28,7 @@ from supabase import create_client, Client
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from pipeline.gee_auth import init_ee
+from pipeline.gee_auth import init_ee, EarthEngineAuthError
 import ee
 
 # Output directories
@@ -490,7 +490,33 @@ def compute_volume_loss_estimate(
 
 def main():
     print("Initialising Earth Engine...")
-    init_ee()
+    try:
+        init_ee()
+    except EarthEngineAuthError as e:
+        print(f"Earth Engine auth failed: {e}")
+        print("Falling back to syncing existing data/dashboard.json to Supabase if available...")
+        out_path = DATA_DIR / "dashboard.json"
+        if not out_path.exists():
+            print("No existing dashboard.json found. Exiting.")
+            sys.exit(1)
+        with open(out_path, "r") as f:
+            dashboard = json.load(f)
+        
+        print("Upserting to Supabase...")
+        supabase_url = os.environ.get("SUPABASE_URL")
+        supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
+        if supabase_url and supabase_key:
+            supabase = create_client(supabase_url, supabase_key)
+            for h in dashboard.get("hotspots", []):
+                supabase.table("hotspots").upsert(h).execute()
+            
+            supabase.table("metadata").upsert({"key": "generated_at", "value": dashboard.get("generated_at", "")}).execute()
+            supabase.table("metadata").upsert({"key": "phase", "value": dashboard.get("phase", "")}).execute()
+            supabase.table("metadata").upsert({"key": "scope_note", "value": dashboard.get("scope_note", "")}).execute()
+            print("Successfully synced with Supabase Postgres.")
+        else:
+            print("WARN: SUPABASE_URL and SUPABASE_SERVICE_KEY env vars not set, skipping DB sync.")
+        return
 
     dashboard = {
         "generated_at": datetime.now(timezone.utc).isoformat() + "Z",
