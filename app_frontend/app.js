@@ -558,7 +558,7 @@ const supabaseClient = window.supabase ? window.supabase.createClient(supabaseUr
 async function fetchDashboard() {
   if (!supabaseClient) {
     console.warn("Supabase SDK not loaded (CDN issue?), falling back to local dashboard.json");
-    const res = await fetch('/data/dashboard.json');
+    const res = await fetch('data/dashboard.json');
     if (!res.ok) throw new Error("Could not fetch local dashboard.json");
     return await res.json();
   }
@@ -587,7 +587,7 @@ async function fetchDashboard() {
   } catch (e) {
     console.error("Supabase fetch error:", e);
     console.log("Falling back to local dashboard.json");
-    const res = await fetch('/data/dashboard.json');
+    const res = await fetch('data/dashboard.json');
     if (!res.ok) throw new Error("Could not fetch local dashboard.json");
     return await res.json();
   }

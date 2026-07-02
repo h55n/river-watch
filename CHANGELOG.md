@@ -2,8 +2,13 @@
 
 All notable changes to the River Watch project are documented here.
 
-## [5.1.0] - 2026-07-01
+## [5.1.1] - 2026-07-02
 
+### Fixed
+- **GitHub Pages Deployment**: Restored and updated `.github/workflows/pages.yml` with a custom build step that creates a `_site` directory mirroring Vercel's routing (serving `app_frontend/` at root, `/data/`, and `/assets/`).
+- **Dashboard JSON Path**: Changed `/data/dashboard.json` to `data/dashboard.json` in `app_frontend/app.js` to ensure the relative path resolves correctly on both Vercel and GitHub Pages.
+
+## [5.1.0] - 2026-07-01
 ### Summary
 Comprehensive stability and resilience update to guarantee zero-downtime operation across all environments. Fixed missing Vercel imagery deployments and hardened the architecture against database, network, and CDN outages.
 
