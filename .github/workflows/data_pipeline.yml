@@ -7,9 +7,16 @@ on:
   workflow_dispatch:
     # Allow manual triggering from the Actions tab
 
+concurrency:
+  group: river-watch-data-pipeline
+  cancel-in-progress: false
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -28,26 +35,39 @@ jobs:
           
       - name: Run Data Pipeline
         env:
+          EE_KEY_JSON: ${{ secrets.EE_KEY_JSON }}
           EE_SERVICE_ACCOUNT: ${{ secrets.EE_SERVICE_ACCOUNT }}
-          GOOGLE_APPLICATION_CREDENTIALS: /tmp/ee_key.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/ee_key.json
           EE_PROJECT: ${{ secrets.EE_PROJECT }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          # Write the JSON key from GitHub Secrets to a file
-          echo '${{ secrets.EE_KEY_JSON }}' > /tmp/ee_key.json
-          
+          set -euo pipefail
+          umask 077
+          trap 'rm -f -- "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
+
+          # Keep secret contents out of the generated shell program and child env.
+          printf '%s' "$EE_KEY_JSON" > "$GOOGLE_APPLICATION_CREDENTIALS"
+          chmod 600 "$GOOGLE_APPLICATION_CREDENTIALS"
+          unset EE_KEY_JSON
+
           # Run the main generation script
           python scripts/generate_dashboard_data.py
           
       - name: Commit and Push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           
           # Add any modified or new files in data/ and app_frontend/imagery/
-          git add data/
-          git add app_frontend/imagery/
+          git add -- data/ app_frontend/imagery/
           
-          # Commit and push if there are changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): auto-update satellite imagery and metrics" && git push)
+          # Commit and push only generated changes; fail visibly if push is denied.
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore(data): auto-update satellite imagery and metrics"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
