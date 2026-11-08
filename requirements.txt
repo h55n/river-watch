@@ -21,3 +21,6 @@ pytest>=8.0.0
 
 # Database
 supabase>=2.3.0
+
+# Workflow regression tests
+PyYAML>=6.0
