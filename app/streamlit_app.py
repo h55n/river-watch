@@ -45,7 +45,7 @@ with col1:
 with col2:
     st.link_button("→ Read Case Files", url="/case_files", use_container_width=True)
 with col3:
-    st.link_button("GitHub ↗", url="https://github.com/", use_container_width=True)
+    st.link_button("GitHub ↗", url="https://github.com/h55n/river-watch", use_container_width=True)
 
 st.markdown('<hr class="rw-divider">', unsafe_allow_html=True)
 
